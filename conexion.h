@@ -27,11 +27,12 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 class conexion{
 public:
-    conexion();
+    conexion(string _archivo);
 private:
     //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
     map<char, map<char, int>> _conexion;

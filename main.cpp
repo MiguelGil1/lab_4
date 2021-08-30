@@ -37,6 +37,8 @@ int main(){
             abierto = true;
         }
     }
+    outfile.close();
+    conexion conexion(archivo);
     system("cls");
     int opt = 0;
     while(opt > 4 || opt < 1 ){
