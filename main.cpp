@@ -45,8 +45,9 @@ int main(){
         cout << "Que desea hacer?" << endl;
         cout << "1.) Agregar enrutador." << endl;
         cout << "2.) Eliminar enrutador." << endl;
-        cout << "3.) Calcular ruta y costos." << endl;
-        cout << "4.) Salir." << endl;
+        cout << "3.) Cambiar costo de enlace." << endl;
+        cout << "4.) Calcular ruta y costos." << endl;
+        cout << "5.) Salir." << endl;
         cin >> opt;
         if(opt > 4 || opt < 1){
             cout << "Opcion fuera de rango." << endl;
