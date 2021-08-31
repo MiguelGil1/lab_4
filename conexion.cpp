@@ -9,16 +9,16 @@ conexion::conexion(string _archivo){
         costo = "";
         file >> linea;
         costo.append(linea,linea.find(",")+1,linea.find("\n"));
-        cout << "[" << linea[0] << "," << linea[1] << "] = " << costo << endl;
-        //cout << linea.find(",") << endl;
-        //cout << linea.append(",") << endl;
-        //_conexion[linea[0]][linea[1]] = {10};
+        _conexion[linea[0]][linea[1]] = atoi(costo.c_str());
     }
-    /*for(auto outer_iter=_conexion.begin(); outer_iter!=_conexion.end(); ++outer_iter) {
+    for(auto outer_iter=_conexion.begin(); outer_iter!=_conexion.end(); ++outer_iter) {
         for(auto inner_iter=outer_iter->second.begin(); inner_iter!=outer_iter->second.end(); ++inner_iter) {
-            cout << "Key = " << outer_iter->first << "  Valor = " << inner_iter->first << " - " << inner_iter->second << endl;
+            cout << "[" << outer_iter->first << "," << inner_iter->first << "] = " << inner_iter->second << endl;
         }
-    }*/
+    }
+    auto search = _conexion.find('A');
+    cout << search->first << endl;
+
 
 
     /*for(auto var : _conexion){
