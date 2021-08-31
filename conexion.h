@@ -33,6 +33,7 @@ using namespace std;
 class conexion{
 public:
     conexion(string _archivo);
+    void cambiarConfiguracion(char*a, char*b, int);
 private:
     //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
     map<char, map<char, int>> _conexion;

@@ -41,29 +41,51 @@ int main(){
     conexion conexion(archivo);
     system("cls");
     int opt = 0;
-    while(opt > 4 || opt < 1 ){
+    bool key = true;
+    while(key){
         cout << "Que desea hacer?" << endl;
         cout << "1.) Agregar enrutador." << endl;
         cout << "2.) Eliminar enrutador." << endl;
         cout << "3.) Cambiar costo de enlace." << endl;
         cout << "4.) Calcular ruta y costos." << endl;
         cout << "5.) Salir." << endl;
+        cout << "Seleccione una opcion: ";
         cin >> opt;
-        if(opt > 4 || opt < 1){
+        switch (opt) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:{
+            char enrutadorA[1],enrutadorB[1];
+            int costo;
+            cout << "Ingrese el nombre del primer enrutador: ";
+            cout.flush();
+            cin >> enrutadorA;
+            cout << "Ingrese el nombre del segundo enrutador: ";
+            cin >> enrutadorB;
+            cout << "Ingrese el costo actualizado: ";
+            cin >> costo;
+            cout << enrutadorA << endl;
+            cout << enrutadorB << endl;
+            conexion.cambiarConfiguracion(enrutadorA,enrutadorB,costo);
+            break;
+        }
+        case 4:
+            break;
+        case 5:
+            cout << "Gracias por utilizar nuestros servicios :)" << endl;
+            key = false;
+            break;
+        default:
             cout << "Opcion fuera de rango." << endl;
+            break;
+        }
+        if(opt <= 1 || opt <= 4){
             system("PAUSE");
             system("CLS");
         }
     }
-    switch (opt) {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    }
+
     return 0;
 }
