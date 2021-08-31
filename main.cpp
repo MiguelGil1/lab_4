@@ -57,17 +57,15 @@ int main(){
         case 2:
             break;
         case 3:{
-            char enrutadorA[1],enrutadorB[1];
+            string enrutadora,enrutadorb;
             int costo;
             cout << "Ingrese el nombre del primer enrutador: ";
-            cout.flush();
-            cin >> enrutadorA;
+            cin >> enrutadora;
             cout << "Ingrese el nombre del segundo enrutador: ";
-            cin >> enrutadorB;
+            cin >> enrutadorb;
             cout << "Ingrese el costo actualizado: ";
             cin >> costo;
-            cout << enrutadorA << endl;
-            cout << enrutadorB << endl;
+            char *enrutadorA = &enrutadora[0], *enrutadorB = &enrutadorb[0];
             conexion.cambiarConfiguracion(enrutadorA,enrutadorB,costo);
             break;
         }
