@@ -26,3 +26,13 @@ conexion::conexion(string _archivo){
     }*/
     system("PAUSE");
 }
+
+void conexion::cambiarConfiguracion(char*a, char *b, int costo){
+    this->_conexion[*a][*b] = costo;
+    this->_conexion[*b][*a] = costo;
+    for(auto outer_iter=_conexion.begin(); outer_iter!=_conexion.end(); ++outer_iter) {
+        for(auto inner_iter=outer_iter->second.begin(); inner_iter!=outer_iter->second.end(); ++inner_iter) {
+            cout << "[" << outer_iter->first << "," << inner_iter->first << "] = " << inner_iter->second << endl;
+        }
+    }
+}
