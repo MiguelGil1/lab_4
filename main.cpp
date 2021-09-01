@@ -70,6 +70,7 @@ int main(){
                 cout << "Ingrese el costo del enlace: ";
                 cin >> costo;
                 enlaces.push_back(aggEnrutador+enlace+","+costo);
+                enlaces.push_back(enlace+aggEnrutador+","+costo);
                 cout << "Desea agregar otra conexion directa?(y/n): ";
                 cin >> aggMas;
                 if(aggMas == "N"){
@@ -77,6 +78,7 @@ int main(){
                 }
             }
             enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces);
+            enlaces.clear();
             break;
         }
         case 2:{

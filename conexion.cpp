@@ -82,7 +82,31 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
     return contenedor;
 }
 
-map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string>){
+map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string> enlaces){
+    Enrutador enrutador;
+    string enrutador_salida = "";
+    string enrutador_llegada = "";
+    string costo = "";
+    for(auto i = enlaces.begin(); i != enlaces.end(); i++){
+        enrutador_salida = "";
+        enrutador_llegada = "";
+        costo = "";
+        enrutador_salida = i[0][0];
+        enrutador_llegada = i[0][1];
+        enrutador.nombre = enrutador_llegada;
+        for(int j = 3; j <= int(i[0].length()) - 1; j++){
+           costo += i [0][j];
+        }
+        enrutador.costo = atoi(costo.c_str());
+        enrutador.ruta = "";
+        contenedor[enrutador_salida].push_back(enrutador);
+    }
+    for (auto par = begin(contenedor); par != end(contenedor); par++){
+        cout << endl << "Enrutador salida: " << par->first << endl;
+        for (auto enru = begin(par->second); enru != end(par->second); enru++){
+            cout << "Enrutador llegada: " << enru->nombre << " - costo: " << enru->costo << " - ruta: " << enru->ruta << endl;
+        }
+    }
     return contenedor;
 }
 
