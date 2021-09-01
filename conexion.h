@@ -25,20 +25,30 @@
 #define CONEXION_H
 #include <map>
 #include <vector>
+#include <list>
 #include <iterator>
 #include <iostream>
 #include <fstream>
 using namespace std;
-
+struct Enrutador{
+    string nombre;
+    int costo;
+    string ruta;
+};
 class conexion{
 public:
-    conexion(string _archivo);
-    void cambiarConfiguracion(char*a, char*b, int);
+    //conexion(string _archivo);
+    map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
+    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
+    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
+    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>);
 private:
     //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
-    map<char, map<char, int>> _conexion;
+    //map<char, map<char, int>> _conexion;
+    //map<char,vector<string>> _conexion;
     //Vector que almacena
-    vector<char> _enrutadoresDeLaRuta;
+    //vector<char> _enrutadoresDeLaRuta;
 };
+
 
 #endif // CONEXION_H

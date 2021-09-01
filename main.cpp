@@ -14,6 +14,7 @@
 using namespace std;
 
 int main(){
+    map<string,list<Enrutador>> enrutadores;
     string archivo =  "";
     cout << "COSTOS DE UN ENRUTADOR A OTRO." << endl;
     cout << "\nIngrese el nombre del archivo que contiene la configuracion de red: ";
@@ -38,7 +39,8 @@ int main(){
         }
     }
     outfile.close();
-    conexion conexion(archivo);
+    conexion conection;
+    enrutadores = conection.cargarDatos(enrutadores,archivo);
     system("cls");
     int opt = 0;
     bool key = true;
@@ -52,21 +54,49 @@ int main(){
         cout << "Seleccione una opcion: ";
         cin >> opt;
         switch (opt) {
-        case 1:
+        case 1:{
+            vector<string> enlaces;
+            string aggEnrutador;
+            cout << "Ingrese el nombre del enrutador a agregar: ";
+            cin >> aggEnrutador;
+            bool agg = true;
+            string aggMas = "", enlace = "", costo = "";
+            while(agg){
+                aggMas = "";
+                enlace = "";
+                costo = "";
+                cout << "Ingrese el nombre del enrutador directamente conectado: ";
+                cin >> enlace;
+                cout << "Ingrese el costo del enlace: ";
+                cin >> costo;
+                enlaces.push_back(aggEnrutador+enlace+","+costo);
+                cout << "Desea agregar otra conexion directa?(y/n): ";
+                cin >> aggMas;
+                if(aggMas == "N"){
+                    agg = false;
+                }
+            }
+            enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces);
             break;
-        case 2:
+        }
+        case 2:{
+            string eliminarEnrutador;
+            cout << "Ingrese el nombre del enrutador a eliminar: ";
+            cin >> eliminarEnrutador;
+            enrutadores = conection.cambiarConfiguracion(enrutadores,eliminarEnrutador);
+            //conexion.cambiarConfiguracion(enrutador);
             break;
+        }
         case 3:{
-            string enrutadora,enrutadorb;
+            string enrutadorSalida,enrutadorLlegada;
             int costo;
             cout << "Ingrese el nombre del primer enrutador: ";
-            cin >> enrutadora;
+            cin >> enrutadorSalida;
             cout << "Ingrese el nombre del segundo enrutador: ";
-            cin >> enrutadorb;
+            cin >> enrutadorLlegada;
             cout << "Ingrese el costo actualizado: ";
             cin >> costo;
-            char *enrutadorA = &enrutadora[0], *enrutadorB = &enrutadorb[0];
-            conexion.cambiarConfiguracion(enrutadorA,enrutadorB,costo);
+            enrutadores = conection.cambiarConfiguracion(enrutadores,enrutadorSalida,enrutadorLlegada,costo);
             break;
         }
         case 4:
