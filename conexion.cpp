@@ -3,7 +3,6 @@
 map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo){
     Enrutador enrutador;
     //Enrutador enrutadorNoDirecto;
-    vector<string> enrutadores;
     ifstream file;
     string linea;
     string costo = "";
@@ -66,22 +65,26 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
     return contenedor;
 }
 
+//FUNCION QUE PERMITE CAMBIAR EL COSOTO DE ENLACE ENTRE ENRUTADORES
 map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enrutador>> contenedor, string a, string b, int costo){
-    bool indirectos = false;
     for (auto par = begin(contenedor); par != end(contenedor); par++){
         if(par->first == a){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
-                if(enru->nombre == b){
-                    if(enru->costo != -1){
+                if(enru->nombre == b){                    
+                    if(enru->costo == -1){
+                        cout << "\nAdertencia: Cambiando enrutadores no dierectos a directos." << endl;
+                    }
+                    enru->costo = costo;
+                    /*if(enru->costo != -1){
                         enru->costo = costo;
                     }else{
                         cout << "Advertencia!\nNo se puede cambiar el costo entre " << a
                              << " y " << b << " porque son enrutadores no conectados dierectamente!" << endl;
                         indirectos = true;
-                    }
+                    }*/
                 }
             }
-        }else if(par->first == b && indirectos == false){
+        }else if(par->first == b){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
                 if(enru->nombre == a){
                     enru->costo = costo;
@@ -98,22 +101,22 @@ map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enru
     return contenedor;
 }
 
+//FUNCION QUE PERMITE ELIMINAR ENRUTADORES DE LA CONEXION
 map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, string a){
     Enrutador enrutador;
-    list <Enrutador> * my_list;
+    //list <Enrutador> *my_list;
     //ELIMINAMOS LA EL ENRUTADOR SELECCIONADO
+    cout << "ELIMINANDO EL ENRUTADOR " << a << endl;
     contenedor.erase(a);
 
     //ELIMINAMOS EL ENRUTADOR DE LOS DEMAS ENRUTADORES
+    cout << "ELIMINANDO EL ENLACE DE " << a << " DE LOS DEMAS ENRUTADORES." << endl;
     for (auto par = begin(contenedor); par != end(contenedor); par++){
-        for (auto enru = begin(par->second); enru != end(par->second); enru++){
+        for (auto enru = begin(par->second); enru != end(par->second); enru++){         
             if(enru->nombre == a){
-                my_list->push_back(*enru);
+                par->second.erase(enru);
+                break;
             }
-        }
-        for(auto i = my_list->begin(); i != my_list->end(); i++){
-            cout << "Se va a eliminar " << par->first << " - " << i->nombre << endl;
-            par->second.erase(i);
         }
     }
     for (auto par = begin(contenedor); par != end(contenedor); par++){
@@ -125,14 +128,24 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
     return contenedor;
 }
 
+//FUNCION QUE POSIBILITA AGREGAR ENRUTADORES A LA CONEXION
 map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string> enlaces, string salida){
     Enrutador enrutador;
     string enrutador_salida = "";
     string enrutador_llegada = "";
     string costo = "";
     bool encontrado = false;
+    for(auto j = contenedor.begin(); j != contenedor.end(); j++){
+        if(j->first == salida){
+            cout << "El enrutador que usted esta intentando agregar, ya se enceuntra alojado en la conexion." << endl;
+            return contenedor;
+        }
+    }
     for(auto i = enlaces.begin(); i != enlaces.end(); i++){
         if (i == enlaces.begin()){
+            //SE DEBE EN PRIMERA INSTACIA AGREGAR LA CONEXION SALIDA-SALIDA
+            //LA CUAL ES IGUAL A 0 Y SIEMPRE VA A ESTAR EN LA PRIMER POSICION
+            //DEL VECTOR ENRUTADORES
             enrutador_salida = "";
             enrutador_llegada = "";
             costo = "";
@@ -146,6 +159,9 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
             enrutador.ruta = "";
             contenedor[enrutador_salida].push_back(enrutador);
         }else{
+            //LUEGO SE EVALUAN LAS DEMAS CONEXIONES
+            //SE DEBE EVALUAR QUE LA CONEXION EXISTA
+            //EN AMBOS SENTIDOS DE ENRUTADOR_A_AGREGAR - ENRUTADOR_DIRECTO
             encontrado = false;
             enrutador_salida = "";
             enrutador_llegada = "";
@@ -227,6 +243,37 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
         }
     }
     return contenedor;
+}
+
+void conexion::imprimirRuta(map<string, list<Enrutador> > contenedor, string a, string b){
+    bool encontradoSalida = false;
+    bool encontrarLlegada = false;
+    for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){
+        if(*i == a){
+            encontradoSalida = true;
+        }
+        if(*i == b){
+            encontrarLlegada = true;
+        }
+    }
+    if(encontradoSalida == false && encontrarLlegada == false){
+        cout << "No se encontraron los enrutadores ingresados :(" << endl;
+    }else if(encontrarLlegada == false){
+        cout << "No se encontro el enrutador de llegada :(" << endl;
+    }else if(encontradoSalida == false){
+        cout << "No se encontro el enrutador de salida :(" << endl;
+    }else{
+        for(auto par = contenedor.begin(); par != contenedor.end(); par++){
+            if(par->first == a){
+                for(auto enru = par->second.begin(); enru != par->second.end(); enru++){
+                    if(enru->nombre == b){
+                        cout << "Ruta: " << enru->ruta << endl;
+                        cout << "Costo: " << enru->costo << endl;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /*conexion::conexion(string _archivo){

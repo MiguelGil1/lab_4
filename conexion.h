@@ -42,7 +42,9 @@ public:
     map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
     map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
     map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>, string);
+    void imprimirRuta(map<string,list<Enrutador>> contenedor, string a, string b);
 private:
+    vector<string> enrutadores;
     //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
     //map<char, map<char, int>> _conexion;
     //map<char,vector<string>> _conexion;
