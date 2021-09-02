@@ -64,14 +64,21 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
 }
 
 map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enrutador>> contenedor, string a, string b, int costo){
+    bool indirectos = false;
     for (auto par = begin(contenedor); par != end(contenedor); par++){
         if(par->first == a){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
                 if(enru->nombre == b){
-                    enru->costo = costo;
+                    if(enru->costo != -1){
+                        enru->costo = costo;
+                    }else{
+                        cout << "Advertencia!\nNo se puede cambiar el costo entre " << a
+                             << " y " << b << " porque son enrutadores no conectados dierectamente!" << endl;
+                        indirectos = true;
+                    }
                 }
             }
-        }else if(par->first == b){
+        }else if(par->first == b && indirectos == false){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
                 if(enru->nombre == a){
                     enru->costo = costo;
