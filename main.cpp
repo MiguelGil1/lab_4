@@ -60,6 +60,7 @@ int main(){
             cout << "Ingrese el nombre del enrutador a agregar: ";
             cin >> aggEnrutador;
             bool agg = true;
+            enlaces.push_back(aggEnrutador+aggEnrutador+",0");
             string aggMas = "", enlace = "", costo = "";
             while(agg){
                 aggMas = "";
@@ -77,7 +78,7 @@ int main(){
                     agg = false;
                 }
             }
-            enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces);
+            enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces,aggEnrutador);
             enlaces.clear();
             break;
         }
@@ -101,12 +102,14 @@ int main(){
             enrutadores = conection.cambiarConfiguracion(enrutadores,enrutadorSalida,enrutadorLlegada,costo);
             break;
         }
-        case 4:
+        case 4:{
             break;
-        case 5:
+        }
+        case 5:{
             cout << "Gracias por utilizar nuestros servicios :)" << endl;
             key = false;
             break;
+        }
         default:
             cout << "Opcion fuera de rango." << endl;
             break;
