@@ -2,12 +2,16 @@
 
 map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo){
     Enrutador enrutador;
+    //Enrutador enrutadorNoDirecto;
+    vector<string> enrutadores;
     ifstream file;
     string linea;
     string costo = "";
     file.open("../"+ _archivo);
     string enrutador_salida = "";
+    bool encontrado = false;
     while(!file.eof()){
+        encontrado = false;
         file >> linea;
         costo = "";
         enrutador_salida = linea[0];
@@ -16,6 +20,38 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
         enrutador.costo = atoi(costo.c_str());
         enrutador.ruta = "";
         contenedor[enrutador_salida].push_back(enrutador);
+        for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){
+            if(*i == enrutador_salida){
+                encontrado = true;
+            }
+        }
+        if(encontrado == false){
+            enrutadores.push_back(enrutador_salida);
+            enrutador_salida = linea[0];
+            enrutador.nombre = linea[0];
+            enrutador.costo = 0;
+            enrutador.ruta = "";
+            contenedor[enrutador_salida].push_back(enrutador);
+        }
+    }
+    for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){//SE RECORRE EL VECTOR DE ENRUTADORES
+        for(auto par = contenedor.begin(); par != contenedor.end(); par++){//SE RECORRE EL MAPA
+            encontrado = false;
+            for(auto enru = par->second.begin(); enru != par->second.end(); enru++){//SE RECORRE LA LISTA DENTRO DEL MAPA
+                if(*i == enru->nombre){
+                    encontrado = true;
+                    break;
+                }
+            }
+            //SE EVALUA SI SE ENCONTRO EL ENRUTADOR EN LA LISTA DEL MAPA
+            if(encontrado == false){
+                enrutador_salida = par->first;
+                enrutador.nombre = *i;
+                enrutador.costo = -1;
+                enrutador.ruta = "";
+                contenedor[enrutador_salida].push_back(enrutador);
+            }
+        }
     }
     for (auto par = begin(contenedor); par != end(contenedor); par++){
         cout << endl << "Enrutador salida: " << par->first << endl;
@@ -28,7 +64,6 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
 }
 
 map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enrutador>> contenedor, string a, string b, int costo){
-    //Enrutador enrutador;
     for (auto par = begin(contenedor); par != end(contenedor); par++){
         if(par->first == a){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
@@ -57,9 +92,7 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
     Enrutador enrutador;
     list <Enrutador> * my_list;
     //ELIMINAMOS LA EL ENRUTADOR SELECCIONADO
-    //contenedor.erase(a);
-
-
+    contenedor.erase(a);
 
     //ELIMINAMOS EL ENRUTADOR DE LOS DEMAS ENRUTADORES
     for (auto par = begin(contenedor); par != end(contenedor); par++){
