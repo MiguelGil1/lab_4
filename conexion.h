@@ -41,7 +41,7 @@ public:
     map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
     map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
     map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
-    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>);
+    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>, string);
 private:
     //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
     //map<char, map<char, int>> _conexion;
