@@ -47,74 +47,85 @@ int main(){
     while(key){
         cout << "Que desea hacer?" << endl;
         cout << "1.) Agregar enrutador." << endl;
-        cout << "2.) Eliminar enrutador." << endl;
-        cout << "3.) Cambiar costo de enlace." << endl;
-        cout << "4.) Calcular ruta y costos." << endl;
-        cout << "5.) Salir." << endl;
+        cout << "2.) Enlazar enrutadores." << endl;
+        cout << "3.) Eliminar enrutador." << endl;
+        cout << "4.) Cambiar costo de enlace." << endl;
+        cout << "5.) Calcular ruta y costos." << endl;
+        cout << "6.) Salir." << endl;
         cout << "Seleccione una opcion: ";
         cin >> opt;
         switch (opt) {
-        case 1:{
-            vector<string> enlaces;
-            string aggEnrutador;
-            cout << "Ingrese el nombre del enrutador a agregar: ";
-            cin >> aggEnrutador;
-            bool agg = true;
-            enlaces.push_back(aggEnrutador+aggEnrutador+",0");
-            string aggMas = "", enlace = "", costo = "";
-            while(agg){
-                aggMas = "";
-                enlace = "";
-                costo = "";
-                cout << "Ingrese el nombre del enrutador directamente conectado: ";
-                cin >> enlace;
-                cout << "Ingrese el costo del enlace: ";
-                cin >> costo;
-                enlaces.push_back(aggEnrutador+enlace+","+costo);
-                enlaces.push_back(enlace+aggEnrutador+","+costo);
-                cout << "Desea agregar otra conexion directa?(y/n): ";
-                cin >> aggMas;
-                if(aggMas == "N"){
-                    agg = false;
-                }
+            case 1:{
+                break;
             }
-            enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces,aggEnrutador);
-            enlaces.clear();
-            break;
+            case 2:{
+                vector<string> enlaces;
+                string aggEnrutador;
+                cout << "Ingrese el nombre del enrutador a agregar: ";
+                cin >> aggEnrutador;
+                bool agg = true;
+                enlaces.push_back(aggEnrutador+aggEnrutador+",0");
+                string aggMas = "", enlace = "", costo = "";
+                while(agg){
+                    aggMas = "";
+                    enlace = "";
+                    costo = "";
+                   cout << "Ingrese el nombre del enrutador directamente conectado: ";
+                   cin >> enlace;
+                   cout << "Ingrese el costo del enlace: ";
+                   cin >> costo;
+                   enlaces.push_back(aggEnrutador+enlace+","+costo);
+                   enlaces.push_back(enlace+aggEnrutador+","+costo);
+                   cout << "Desea agregar otra conexion directa?(y/n): ";
+                   cin >> aggMas;
+                   if(aggMas == "N"){
+                       agg = false;
+                   }
+                }
+                enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces,aggEnrutador);
+                enlaces.clear();
+                break;
+            }
+            case 3:{
+                string eliminarEnrutador;
+                cout << "Ingrese el nombre del enrutador a eliminar: ";
+                cin >> eliminarEnrutador;
+                enrutadores = conection.cambiarConfiguracion(enrutadores,eliminarEnrutador);
+                //conexion.cambiarConfiguracion(enrutador);
+                break;
+            }
+            case 4:{
+                string enrutadorSalida,enrutadorLlegada;
+                int costo;
+                cout << "Ingrese el nombre del primer enrutador: ";
+                cin >> enrutadorSalida;
+                cout << "Ingrese el nombre del segundo enrutador: ";
+                cin >> enrutadorLlegada;
+                cout << "Ingrese el costo actualizado: ";
+                cin >> costo;
+                enrutadores = conection.cambiarConfiguracion(enrutadores,enrutadorSalida,enrutadorLlegada,costo);
+                break;
+            }
+            case 5:{
+                string enrutadorSalida = "", enrutadorLlegada = "";
+                cout << "Ingrese el enrutador de salida: ";
+                cin >> enrutadorSalida;
+                cout << "Ingrese el enrutador de destino: ";
+                cin >> enrutadorLlegada;
+                conection.imprimirRuta(enrutadores,enrutadorSalida,enrutadorLlegada);
+                break;
+            }
+            case 6:{
+                cout << "Gracias por utilizar nuestros servicios :)" << endl;
+                key = false;
+                break;
+            }
+            default:{
+                cout << "Opcion fuera de rango." << endl;
+                break;
+            }
         }
-        case 2:{
-            string eliminarEnrutador;
-            cout << "Ingrese el nombre del enrutador a eliminar: ";
-            cin >> eliminarEnrutador;
-            enrutadores = conection.cambiarConfiguracion(enrutadores,eliminarEnrutador);
-            //conexion.cambiarConfiguracion(enrutador);
-            break;
-        }
-        case 3:{
-            string enrutadorSalida,enrutadorLlegada;
-            int costo;
-            cout << "Ingrese el nombre del primer enrutador: ";
-            cin >> enrutadorSalida;
-            cout << "Ingrese el nombre del segundo enrutador: ";
-            cin >> enrutadorLlegada;
-            cout << "Ingrese el costo actualizado: ";
-            cin >> costo;
-            enrutadores = conection.cambiarConfiguracion(enrutadores,enrutadorSalida,enrutadorLlegada,costo);
-            break;
-        }
-        case 4:{
-            break;
-        }
-        case 5:{
-            cout << "Gracias por utilizar nuestros servicios :)" << endl;
-            key = false;
-            break;
-        }
-        default:
-            cout << "Opcion fuera de rango." << endl;
-            break;
-        }
-        if(opt <= 1 || opt <= 4){
+        if(opt <= 1 || opt <= 5){
             system("PAUSE");
             system("CLS");
         }
