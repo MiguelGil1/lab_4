@@ -14,33 +14,57 @@
 using namespace std;
 
 int main(){
-    map<string,list<Enrutador>> enrutadores;
+    //vector<Enrutador> topologia;
+    //map<string,list<Enrutador>> topologia;
+    //A -
     string archivo =  "";
-    cout << "COSTOS DE UN ENRUTADOR A OTRO." << endl;
-    cout << "\nIngrese el nombre del archivo que contiene la configuracion de red: ";
-    cin >> archivo;
-    archivo += ".txt";
-    bool abierto = false;
-    ifstream outfile;
-
-    while(!abierto){
-        outfile.open("../"+archivo);
-        if(!outfile.is_open()){
-            archivo = "";
-            cout << "El archivo no fue abierto adecuadamente.\nIntentelo nuevamente." << endl;
-            system("PAUSE");
-            system("cls");
-            cout << "COSTOS DE UN ENRUTADOR A OTRO." << endl;
-            cout << "\nIngrese el nombre del archivo que contiene la configuracion de red: ";
-            cin >> archivo;
-            archivo += ".txt";
-        }else{
-            abierto = true;
+    bool flag = true;
+    int optMenuPrincipal = 0;
+    while(flag){
+        cout << "COSTOS DE UN ENRUTADOR A OTRO." << endl;
+        cout << "1.) Cargar topologia desde archivo." << endl;
+        cout << "2.) Cargar topologia desde consola." << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> optMenuPrincipal;
+        switch (optMenuPrincipal){
+            case 1:{
+                cout << "\nIngrese el nombre del archivo que contiene la configuracion de red: ";
+                cin >> archivo;
+                archivo += ".txt";
+                bool abierto = false;
+                ifstream outfile;
+                while(!abierto){
+                    outfile.open("../"+archivo);
+                    if(!outfile.is_open()){
+                        archivo = "";
+                        cout << "El archivo no fue abierto adecuadamente.\nIntentelo nuevamente." << endl;
+                        system("PAUSE");
+                        system("cls");
+                        cout << "\nIngrese el nombre del archivo que contiene la configuracion de red: ";
+                        cin >> archivo;
+                        archivo += ".txt";
+                    }else{
+                        abierto = true;
+                    }
+                }
+                outfile.close();
+                flag = false;
+                break;
+            }
+            case 2:{
+                flag = false;
+                break;
+            }
+            default:{
+                cout << "Opcion fuera de rango." << endl;
+                break;
+            }
         }
     }
-    outfile.close();
     conexion conection;
-    enrutadores = conection.cargarDatos(enrutadores,archivo);
+    if(optMenuPrincipal == 1){
+        conection.cargarDatos(archivo);
+    }
     system("cls");
     int opt = 0;
     bool key = true;
@@ -56,6 +80,9 @@ int main(){
         cin >> opt;
         switch (opt) {
             case 1:{
+                string aggEnrutador;
+                cout << "Ingrese el nombre del enrutador a agregar: ";
+                cin >> aggEnrutador;
                 break;
             }
             case 2:{
@@ -82,7 +109,8 @@ int main(){
                        agg = false;
                    }
                 }
-                enrutadores = conection.cambiarConfiguracion(enrutadores,enlaces,aggEnrutador);
+
+                //topologia = conection.cambiarConfiguracion(topologia,enlaces,aggEnrutador);
                 enlaces.clear();
                 break;
             }
@@ -90,8 +118,7 @@ int main(){
                 string eliminarEnrutador;
                 cout << "Ingrese el nombre del enrutador a eliminar: ";
                 cin >> eliminarEnrutador;
-                enrutadores = conection.cambiarConfiguracion(enrutadores,eliminarEnrutador);
-                //conexion.cambiarConfiguracion(enrutador);
+                conection.cambiarConfiguracion(eliminarEnrutador);
                 break;
             }
             case 4:{
@@ -103,7 +130,7 @@ int main(){
                 cin >> enrutadorLlegada;
                 cout << "Ingrese el costo actualizado: ";
                 cin >> costo;
-                enrutadores = conection.cambiarConfiguracion(enrutadores,enrutadorSalida,enrutadorLlegada,costo);
+                //topologia = conection.cambiarConfiguracion(topologia,enrutadorSalida,enrutadorLlegada,costo);
                 break;
             }
             case 5:{
@@ -112,7 +139,8 @@ int main(){
                 cin >> enrutadorSalida;
                 cout << "Ingrese el enrutador de destino: ";
                 cin >> enrutadorLlegada;
-                conection.imprimirRuta(enrutadores,enrutadorSalida,enrutadorLlegada);
+                conection.imprimirRuta(enrutadorSalida,enrutadorLlegada);
+                //conection.imprimirRuta(topologia,enrutadorSalida,enrutadorLlegada);
                 break;
             }
             case 6:{
@@ -130,6 +158,5 @@ int main(){
             system("CLS");
         }
     }
-
     return 0;
 }

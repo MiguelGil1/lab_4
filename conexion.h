@@ -23,33 +23,28 @@
 */
 #ifndef CONEXION_H
 #define CONEXION_H
-#include <map>
-#include <vector>
-#include <list>
-#include <iterator>
-#include <iostream>
-#include <fstream>
-using namespace std;
-struct Enrutador{
-    string nombre;
-    int costo;
-    string ruta;
-};
+#include "Enrutador.h"
+
 class conexion{
 public:
-    //conexion(string _archivo);
-    map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
-    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
-    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
-    map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>, string);
-    void imprimirRuta(map<string,list<Enrutador>> contenedor, string a, string b);
+    //vector<Enrutador> cargarDatos(vector<Enrutador> contenedor, string _archivo);
+    //Funcion que me permite cargar los daros desde el archivo
+    void cargarDatos(string _archivo);
+
+    //A continuacion se sobrecarga la funcion cambiarConfiguracion
+    void cambiarConfiguracion(string a);//Permite eliminar enrutadores
+    //map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
+    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
+    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
+    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>, string);
+    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>);
+    void imprimirRuta(string a, string b);
+
+    void calcularRutas();
 private:
-    vector<string> enrutadores;
-    //Mapa de las conexiones directas? / Mapa de la tabla de enrutamiento?
-    //map<char, map<char, int>> _conexion;
-    //map<char,vector<string>> _conexion;
-    //Vector que almacena
-    //vector<char> _enrutadoresDeLaRuta;
+    map<string,int> _rutas;
+    vector<Enrutador> _topologia;
+    vector<string> enrutadoresExistentes;
 };
 
 

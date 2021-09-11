@@ -1,6 +1,6 @@
 #include "conexion.h"
 
-map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo){
+/*map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo){
     Enrutador enrutador;
     //Enrutador enrutadorNoDirecto;
     ifstream file;
@@ -21,13 +21,13 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
         contenedor[enrutador_salida].push_back(enrutador);
         //SE AGREGAN TODOS LOS ENRUTADORES AL VECTOR ENRUTADORES
         //CON EL OBJETIVO DE LUEGO HAYAR LAS CONEXIONES INDIRECTAS
-        for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){
+        for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
             if(*i == enrutador_salida){
                 encontrado = true;
             }
         }
         if(encontrado == false){
-            enrutadores.push_back(enrutador_salida);
+            enrutadoresExistentes.push_back(enrutador_salida);
             //CASO EN EL QUE ENRUTADOR DE SALIDA = ENRUTADOR DE LLEGADA
             enrutador_salida = linea[0];
             enrutador.nombre = linea[0];
@@ -36,7 +36,7 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
             contenedor[enrutador_salida].push_back(enrutador);
         }
     }
-    for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){//SE RECORRE EL VECTOR DE ENRUTADORES
+    for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){//SE RECORRE EL VECTOR DE ENRUTADORES
         for(auto par = contenedor.begin(); par != contenedor.end(); par++){//SE RECORRE EL MAPA
             encontrado = false;
             for(auto enru = par->second.begin(); enru != par->second.end(); enru++){//SE RECORRE LA LISTA DENTRO DEL MAPA
@@ -63,10 +63,10 @@ map<string,list<Enrutador>> conexion::cargarDatos(map<string,list<Enrutador>> co
     }
     system("PAUSE");
     return contenedor;
-}
+}*/
 
 //FUNCION QUE PERMITE CAMBIAR EL COSOTO DE ENLACE ENTRE ENRUTADORES
-map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enrutador>> contenedor, string a, string b, int costo){
+/*map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enrutador>> contenedor, string a, string b, int costo){
     for (auto par = begin(contenedor); par != end(contenedor); par++){
         if(par->first == a){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
@@ -74,7 +74,7 @@ map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enru
                     if(enru->costo == -1){
                         cout << "\nAdertencia: Cambiando enrutadores no dierectos a directos." << endl;
                     }
-                    enru->costo = costo;
+                    enru->costo = costo;*/
                     /*if(enru->costo != -1){
                         enru->costo = costo;
                     }else{
@@ -82,7 +82,7 @@ map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enru
                              << " y " << b << " porque son enrutadores no conectados dierectamente!" << endl;
                         indirectos = true;
                     }*/
-                }
+               /* }
             }
         }else if(par->first == b){
             for (auto enru = begin(par->second); enru != end(par->second); enru++){
@@ -99,10 +99,10 @@ map<string,list<Enrutador>> conexion::cambiarConfiguracion(map<string, list<Enru
         }
     }
     return contenedor;
-}
+}*/
 
 //FUNCION QUE PERMITE ELIMINAR ENRUTADORES DE LA CONEXION
-map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, string a){
+/*map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, string a){
     Enrutador enrutador;
     //list <Enrutador> *my_list;
     //ELIMINAMOS LA EL ENRUTADOR SELECCIONADO
@@ -126,22 +126,22 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
         }
     }
     return contenedor;
-}
+}*/
 
-//FUNCION QUE POSIBILITA AGREGAR ENRUTADORES A LA CONEXION
-map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string> enlaces, string salida){
+//FUNCION QUE POSIBILITA ENLAZAR UN ENRUTADOR CON OTRO
+/*map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string> enlaces, string salida){
     Enrutador enrutador;
     string enrutador_salida = "";
     string enrutador_llegada = "";
     string costo = "";
-    bool encontrado = false;
-    for(auto j = contenedor.begin(); j != contenedor.end(); j++){
+    bool encontrado = false;*/
+    /*for(auto j = contenedor.begin(); j != contenedor.end(); j++){
         if(j->first == salida){
             cout << "El enrutador que usted esta intentando agregar, ya se enceuntra alojado en la conexion." << endl;
             return contenedor;
         }
-    }
-    for(auto i = enlaces.begin(); i != enlaces.end(); i++){
+    }*/
+    /*for(auto i = enlaces.begin(); i != enlaces.end(); i++){
         if (i == enlaces.begin()){
             //SE DEBE EN PRIMERA INSTACIA AGREGAR LA CONEXION SALIDA-SALIDA
             //LA CUAL ES IGUAL A 0 Y SIEMPRE VA A ESTAR EN LA PRIMER POSICION
@@ -185,7 +185,7 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
                     enrutador.ruta = "";
                     contenedor[enrutador_salida].push_back(enrutador);
                 }else{
-                    cout << "No se pudo aggregar la conexion directa " <<
+                    cout << "No se pudo agregar el enlace " <<
                             enrutador_salida << " - " << enrutador_llegada <<
                             " porque el enrutador de salida no existe en la conexion." << endl;
                 }
@@ -243,12 +243,12 @@ map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<En
         }
     }
     return contenedor;
-}
+}*/
 
-void conexion::imprimirRuta(map<string, list<Enrutador> > contenedor, string a, string b){
+/*void conexion::imprimirRuta(map<string, list<Enrutador> > contenedor, string a, string b){
     bool encontradoSalida = false;
     bool encontrarLlegada = false;
-    for(auto i = enrutadores.begin(); i != enrutadores.end(); i++){
+    for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
         if(*i == a){
             encontradoSalida = true;
         }
@@ -274,7 +274,7 @@ void conexion::imprimirRuta(map<string, list<Enrutador> > contenedor, string a, 
             }
         }
     }
-}
+}*/
 
 /*conexion::conexion(string _archivo){
     ifstream file;
@@ -334,3 +334,199 @@ void conexion::imprimirRuta(map<string, list<Enrutador> > contenedor, string a, 
         }
     }
 }*/
+
+void conexion::cargarDatos(string _archivo){
+    Caracteristicas enrutador;
+
+    ifstream file;
+    string linea;
+
+    file.open("../"+ _archivo);
+    string enrutadorSalida = "";
+
+    bool encontrado = false;
+    while(!file.eof()){
+        encontrado = false;
+        file >> linea;
+        enrutadorSalida = linea[0];
+        string enrutadorSalida_ = enrutadorSalida;
+        //SE AGREGAN TODOS LOS ENRUTADORES AL VECTOR ENRUTADORES
+        //CON EL OBJETIVO DE LUEGO HAYAR LAS CONEXIONES INDIRECTAS
+        for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
+            if(*i == enrutadorSalida){
+                encontrado = true;
+            }
+        }
+        if(encontrado == false){
+            enrutadoresExistentes.push_back(enrutadorSalida);
+            Enrutador enrutadorSalida(enrutadorSalida_);
+            _topologia.push_back(enrutadorSalida);
+        }
+    }
+    file.close();
+    file.open("../"+ _archivo);
+
+    string costoDirectoStr = "";
+    int costoDirecto = 0;
+    string enrutadorLlegada = "";
+    while(!file.eof()){
+        file >> linea;
+        costoDirectoStr = "";
+        enrutadorSalida = linea[0];
+        string enrutadorSalida_ = enrutadorSalida;
+        enrutadorLlegada = linea[1];
+        costoDirectoStr.append(linea,linea.find(",")+1,linea.find("\n"));
+        costoDirecto = stoi(costoDirectoStr);
+        for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+            string nombreSalida = i->Getnombre();
+            if(enrutadorSalida_ == nombreSalida){
+                enrutador.costoDirecto = costoDirecto;
+                enrutador.costo = 0;
+                enrutador.ruta = "";
+                map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+                _enrutador[enrutadorLlegada].push_back(enrutador);
+                i->setEnrutador(_enrutador);
+            }
+        }
+
+    }
+
+    //ENCONTRAMOS ENLACES INDIRECTOS
+    for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
+        for(auto j = _topologia.begin(); j != _topologia.end(); j++){
+            string nombreSalida = j->Getnombre();
+            map<string, list<Caracteristicas>> _enrutador = j->Getenrutador();
+            for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+                encontrado = false;
+                if(*i == par->first){
+                    encontrado = true;
+                    break;
+                }
+            }
+            if(encontrado == false){
+                enrutador.costoDirecto = -1;
+                enrutador.costo = 0;
+                enrutador.ruta = "";
+                _enrutador[*i].push_back(enrutador);
+                j->setEnrutador(_enrutador);
+            }
+        }
+    }
+
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        cout << endl << "Enrutador salida: " << nombreSalida << endl;
+        map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+        for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+            cout << endl << "Enrutador llegada: " << par->first << " - ";
+            for (auto enru = begin(par->second); enru != end(par->second); enru++){
+                cout << "Costo Directo: " << enru->costoDirecto << " - costo: " << enru->costo << " - ruta: " << enru->ruta << endl;
+            }
+        }
+        cout << endl;
+    }
+    calcularRutas();
+    system("PAUSE");
+}
+
+//FUNCION QUE PERMITE ELIMINAR ENRUTADORES DE LA CONEXION
+void conexion::cambiarConfiguracion(string enrutadorEliminar){
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        if(nombreSalida == enrutadorEliminar){
+            _topologia.erase(i);
+            //i->~Enrutador();
+            break;
+        }
+    }
+    //ELIMINAMOS EL ENRUTADOR DE LOS DEMAS ENRUTADORES
+    cout << "ELIMINANDO EL ENLACE DE " << enrutadorEliminar << " DE LOS DEMAS ENRUTADORES." << endl;
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+        _enrutador.erase(enrutadorEliminar);
+        i->setEnrutador(_enrutador);
+    }
+
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        cout << endl << "Enrutador salida: " << nombreSalida << endl;
+        map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+        for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+            cout << endl << "Enrutador llegada: " << par->first << " - ";
+            for (auto enru = begin(par->second); enru != end(par->second); enru++){
+                cout << "Costo Directo: " << enru->costoDirecto << " - costo: " << enru->costo << " - ruta: " << enru->ruta << endl;
+            }
+        }
+        cout << endl;
+    }
+    _rutas.clear();
+    calcularRutas();
+}
+
+void conexion::calcularRutas(){
+    string ruta = "";
+    //HALLAMOS RUTAS DE CONEXIONES DIRECTAS
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+        for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+            for (auto enru = begin(par->second); enru != end(par->second); enru++){
+                if(enru->costoDirecto != -1 and nombreSalida != par->first){
+                    _rutas[nombreSalida+par->first] = enru->costoDirecto;
+                }
+            }
+        }
+    }
+
+    bool encontrado = false;
+    for(auto par = _rutas.begin(); par != _rutas.end(); par++){
+        ruta = par->first;
+        for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+            string nombreSalida = i->Getnombre();
+            encontrado = false;
+            for(int i = 0; i < int(ruta.length()); i++){
+                if(ruta[i] == par->first[0]){
+                    encontrado = true;
+                    break;
+                }
+            }
+            //ruta[0]+nombreSalida == ruta
+            if(encontrado == true){//PROBLEMA SOLO ME VA A TOMAR 3 ENRUTADORES MAXIMO -> RESUELTO
+                //PROBLEMA: COSTOS! NO IMPRIME LOS COSTOS COMO SON
+                map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+                for(auto parTop = _enrutador.begin(); parTop != _enrutador.end(); parTop++){
+                    encontrado = false;
+                    for(int i = 0; i < int(ruta.length()); i++){
+                        if(ruta[i] == parTop->first[0]){
+                            encontrado = true;
+                        }
+                    }
+
+                    for (auto enru = begin(parTop->second); enru != end(parTop->second); enru++){
+                        if(enru->costoDirecto != -1 and encontrado == false){
+                            int costo = 0;
+                            string rutaIngresar = "";
+                            rutaIngresar = ruta+parTop->first[0];
+                            //cout << rutaIngresar << endl;
+                            for(int i = 0; i < int(rutaIngresar.length())-1; i++){
+                                string r = "";
+                                r += rutaIngresar[i];
+                                r+= rutaIngresar[i+1];
+                                //cout << r << endl;
+                                costo += _rutas.find(r)->second;
+                            }
+                            _rutas[rutaIngresar] = costo;
+                            //_rutas[ruta+parTop->first] = enru->costoDirecto + par->second;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //IMPRIMIMOS EL MAPA DE RUTAS
+    for(auto par = _rutas.begin(); par != _rutas.end(); par++){
+        cout << "RUTA = " << par->first << " - COSTO = " << par->second << endl;
+    }
+}
