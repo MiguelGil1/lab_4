@@ -525,8 +525,46 @@ void conexion::calcularRutas(){
         }
     }
 
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        i->calcularMejorRuta(_rutas);
+    }
+
     //IMPRIMIMOS EL MAPA DE RUTAS
     for(auto par = _rutas.begin(); par != _rutas.end(); par++){
         cout << "RUTA = " << par->first << " - COSTO = " << par->second << endl;
+    }
+}
+
+void conexion::imprimirRuta(string a, string b){
+    bool encontradoSalida = false;
+    bool encontrarLlegada = false;
+    for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
+        if(*i == a){
+            encontradoSalida = true;
+        }
+        if(*i == b){
+            encontrarLlegada = true;
+        }
+    }
+    if(encontradoSalida == false && encontrarLlegada == false){
+        cout << "No se encontraron los enrutadores ingresados :(" << endl;
+    }else if(encontrarLlegada == false){
+        cout << "No se encontro el enrutador de llegada :(" << endl;
+    }else if(encontradoSalida == false){
+        cout << "No se encontro el enrutador de salida :(" << endl;
+    }else{
+        for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+            string nombreSalida = i->Getnombre();
+            if(nombreSalida == a){
+                map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+                for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+                    if(par->first == b){
+                        for (auto enru = begin(par->second); enru != end(par->second); enru++){
+                            cout << "Ruta: " << enru->ruta << " - costo: " << enru->costo << endl;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
