@@ -33,6 +33,8 @@ public:
 
     //A continuacion se sobrecarga la funcion cambiarConfiguracion
     void cambiarConfiguracion(string a);//Permite eliminar enrutadores
+    void cambiarConfiguracion(string a, string b, int c);//Permite cambiar el costo entre enrutadores
+    void cambiarConfiguracion(vector<string> enlaces, string salida);//Permite agregar enrutadores a la topologia
     //map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
     //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
     //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);

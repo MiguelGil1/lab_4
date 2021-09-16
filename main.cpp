@@ -64,6 +64,37 @@ int main(){
     conexion conection;
     if(optMenuPrincipal == 1){
         conection.cargarDatos(archivo);
+    }else{
+        cout << "Por favor ingrese las conexiones de la Topologia:" << endl;
+        cout << "Tenga en cuenta que si quiere conectar los enrutadores AB, tambien debe escribir la cponexion BA" << endl;
+        bool flag = false;
+        while (flag == false){
+            string enrutadorSalida = "";
+            string enrutadorLleguada = "";
+            int costo = 0;
+            string ingresar = "";
+            cout << "Ingrese el nombre del enrutador de salida: ";
+            cin >> enrutadorSalida;
+            cout << "Ingrese el nombre del enrutador de llegada: ";
+            cin >> enrutadorLleguada;
+            cout << "Ingrese el costo del enlace: ";
+            cin >> costo;
+            bool flag2 = false;
+            while(flag2 == false){
+                cout << "Desea ingresar otro enrutador? (Y/N): ";
+                cin >> ingresar;
+                if(ingresar == "Y" || ingresar == "y" || ingresar == "N" || ingresar == "n"){
+                    flag2 = true;
+                }else{
+                    cout << "Opcion fuera de rango" << endl;
+                }
+            }
+
+            if(ingresar == "N" || ingresar == "n"){
+                flag = true;
+                //conection.cargarDatos(archivo);
+            }
+        }
     }
     system("cls");
     int opt = 0;
@@ -80,38 +111,35 @@ int main(){
         cin >> opt;
         switch (opt) {
             case 1:{
-                string aggEnrutador;
-                cout << "Ingrese el nombre del enrutador a agregar: ";
-                cin >> aggEnrutador;
-                break;
-            }
-            case 2:{
                 vector<string> enlaces;
                 string aggEnrutador;
                 cout << "Ingrese el nombre del enrutador a agregar: ";
                 cin >> aggEnrutador;
                 bool agg = true;
-                enlaces.push_back(aggEnrutador+aggEnrutador+",0");
+                //enlaces.push_back(aggEnrutador+aggEnrutador+",0");
                 string aggMas = "", enlace = "", costo = "";
                 while(agg){
                     aggMas = "";
                     enlace = "";
                     costo = "";
-                   cout << "Ingrese el nombre del enrutador directamente conectado: ";
-                   cin >> enlace;
-                   cout << "Ingrese el costo del enlace: ";
-                   cin >> costo;
-                   enlaces.push_back(aggEnrutador+enlace+","+costo);
-                   enlaces.push_back(enlace+aggEnrutador+","+costo);
-                   cout << "Desea agregar otra conexion directa?(y/n): ";
-                   cin >> aggMas;
-                   if(aggMas == "N"){
-                       agg = false;
-                   }
+                    cout << "Ingrese el nombre del enrutador directamente conectado: ";
+                    cin >> enlace;
+                    cout << "Ingrese el costo del enlace: ";
+                    cin >> costo;
+                    enlaces.push_back(aggEnrutador+enlace+","+costo);
+                    enlaces.push_back(enlace+aggEnrutador+","+costo);
+                    cout << "Desea agregar otra conexion directa?(Y/N): ";
+                    cin >> aggMas;
+                    if(aggMas == "N"){
+                        agg = false;
+                    }
                 }
-
+                conection.cambiarConfiguracion(enlaces,aggEnrutador);
                 //topologia = conection.cambiarConfiguracion(topologia,enlaces,aggEnrutador);
                 enlaces.clear();
+                break;
+            }
+            case 2:{
                 break;
             }
             case 3:{
@@ -123,13 +151,14 @@ int main(){
             }
             case 4:{
                 string enrutadorSalida,enrutadorLlegada;
-                int costo;
+                int costoDirecto;
                 cout << "Ingrese el nombre del primer enrutador: ";
                 cin >> enrutadorSalida;
                 cout << "Ingrese el nombre del segundo enrutador: ";
                 cin >> enrutadorLlegada;
                 cout << "Ingrese el costo actualizado: ";
-                cin >> costo;
+                cin >> costoDirecto;
+                conection.cambiarConfiguracion(enrutadorSalida, enrutadorLlegada, costoDirecto);
                 //topologia = conection.cambiarConfiguracion(topologia,enrutadorSalida,enrutadorLlegada,costo);
                 break;
             }
