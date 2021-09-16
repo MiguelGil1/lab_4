@@ -19,6 +19,7 @@ struct Caracteristicas{
 class Enrutador{
 public:
     Enrutador(string);
+    void calcularMejorRuta(map<string,int> _rutas);
 
     string Getnombre() const;
     void setNombre(const string &nombre);
