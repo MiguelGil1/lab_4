@@ -116,7 +116,6 @@ int main(){
                 cout << "Ingrese el nombre del enrutador a agregar: ";
                 cin >> aggEnrutador;
                 bool agg = true;
-                //enlaces.push_back(aggEnrutador+aggEnrutador+",0");
                 string aggMas = "", enlace = "", costo = "";
                 while(agg){
                     aggMas = "";
@@ -140,6 +139,15 @@ int main(){
                 break;
             }
             case 2:{
+                string enrutadorSalida,enrutadorLlegada, costoDirecto;
+                cout << "Ingrese el nombre del primer enrutador: ";
+                cin >> enrutadorSalida;
+                cout << "Ingrese el nombre del segundo enrutador: ";
+                cin >> enrutadorLlegada;
+                cout << "Ingrese el costo entre ambos: ";
+                cin >> costoDirecto;
+                conection.cambiarConfiguracion(enrutadorSalida, enrutadorLlegada, costoDirecto);
+                //topologia = conection.cambiarConfiguracion(topologia,enrutadorSalida,enrutadorLlegada,costo);
                 break;
             }
             case 3:{

@@ -416,7 +416,7 @@ void conexion::cambiarConfiguracion(string a, string b, int c){
                 if(par->first == b || par->first == a){
                     for(auto enru = par->second.begin(); enru != par->second.end(); enru++){
                         if(enru->costoDirecto == -1){
-                            cout << "\nNo se puede cambiar el costo por que ambos son enrutadores indirectos\nDebe enlazarlos pra poder cambiar el cosot." << endl;
+                            cout << "\nNo se puede cambiar el costo por que ambos son enrutadores indirectos\nDebe enlazarlos pra poder cambiar el cosoto." << endl;
                         }else{
                             enru->costoDirecto = c;
                             i->setEnrutador(_enrutador);
@@ -444,123 +444,8 @@ void conexion::cambiarConfiguracion(string a, string b, int c){
     _rutas.clear();
     calcularRutas();
 }
-/*map<string, list<Enrutador> > conexion::cambiarConfiguracion(map<string, list<Enrutador> > contenedor, vector<string> enlaces, string salida){
-    Enrutador enrutador;
-    string enrutador_salida = "";
-    string enrutador_llegada = "";
-    string costo = "";
-    bool encontrado = false;*/
-    /*for(auto j = contenedor.begin(); j != contenedor.end(); j++){
-        if(j->first == salida){
-            cout << "El enrutador que usted esta intentando agregar, ya se enceuntra alojado en la conexion." << endl;
-            return contenedor;
-        }
-    }*/
-    /*for(auto i = enlaces.begin(); i != enlaces.end(); i++){
-        if (i == enlaces.begin()){
-            //SE DEBE EN PRIMERA INSTACIA AGREGAR LA CONEXION SALIDA-SALIDA
-            //LA CUAL ES IGUAL A 0 Y SIEMPRE VA A ESTAR EN LA PRIMER POSICION
-            //DEL VECTOR ENRUTADORES
-            enrutador_salida = "";
-            enrutador_llegada = "";
-            costo = "";
-            enrutador_salida = i[0][0];
-            enrutador_llegada = i[0][1];
-            enrutador.nombre = enrutador_llegada;
-            for(int j = 3; j <= int(i[0].length()) - 1; j++){
-               costo += i [0][j];
-            }
-            enrutador.costo = atoi(costo.c_str());
-            enrutador.ruta = "";
-            contenedor[enrutador_salida].push_back(enrutador);
-        }else{
-            //LUEGO SE EVALUAN LAS DEMAS CONEXIONES
-            //SE DEBE EVALUAR QUE LA CONEXION EXISTA
-            //EN AMBOS SENTIDOS DE ENRUTADOR_A_AGREGAR - ENRUTADOR_DIRECTO
-            encontrado = false;
-            enrutador_salida = "";
-            enrutador_llegada = "";
-            costo = "";
-            enrutador_salida = i[0][0];
-            enrutador_llegada = i[0][1];
-            //SE EVALUA SI EXISTE LA CLAVE
-            if(enrutador_llegada == salida){
-                for(auto i = contenedor.begin(); i != contenedor.end(); i++){
-                    //se evalua que el enrutador de llegada exista en en la conexion
-                    if(i->first == enrutador_salida){
-                        encontrado = true;
-                    }
-                }
-                if(encontrado == true){
-                    enrutador.nombre = enrutador_llegada;
-                    for(int j = 3; j <= int(i[0].length()) - 1; j++){
-                       costo += i [0][j];
-                    }
-                    enrutador.costo = atoi(costo.c_str());
-                    enrutador.ruta = "";
-                    contenedor[enrutador_salida].push_back(enrutador);
-                }else{
-                    cout << "No se pudo agregar el enlace " <<
-                            enrutador_salida << " - " << enrutador_llegada <<
-                            " porque el enrutador de salida no existe en la conexion." << endl;
-                }
-            }else if(enrutador_salida == salida){
-                for(auto i = contenedor.begin(); i != contenedor.end(); i++){
-                    //se evalua que el enrutador de llegada exista en en la conexion
-                    if(i->first == enrutador_llegada){
-                        encontrado = true;
-                    }
-                }
-                if(encontrado == true){
-                    enrutador.nombre = enrutador_llegada;
-                    for(int j = 3; j <= int(i[0].length()) - 1; j++){
-                       costo += i [0][j];
-                    }
-                    enrutador.costo = atoi(costo.c_str());
-                    enrutador.ruta = "";
-                    contenedor[enrutador_salida].push_back(enrutador);
-                }else{
-                    cout << "No se pudo aggregar la conexion directa " <<
-                            enrutador_salida << " - " << enrutador_llegada <<
-                            " porque el enrutador de llegada no existe en la conexion." << endl;
-                }
-            }
-        }
-    }
-    encontrado = false;
-    //PARA HALLAR CONECCIONES INDIRECTAS AL ENRUTADOR CREADO
-    for(auto par = contenedor.begin(); par != contenedor.end(); par++){//SE RECORRE EL MAPA
-        encontrado = false;
-        for(auto enru = par->second.begin(); enru != par->second.end(); enru++){//SE RECORRE LA LISTA DENTRO DEL MAPA
-            if(salida == enru->nombre){
-                encontrado = true;
-                break;
-            }
-        }
-        //SE EVALUA SI SE ENCONTRO EL ENRUTADOR EN LA LISTA DEL MAPA
-        if(encontrado == false){
-            enrutador_salida = par->first;
-            enrutador.nombre = salida;
-            enrutador.costo = -1;
-            enrutador.ruta = "";
-            contenedor[enrutador_salida].push_back(enrutador);
-            enrutador_salida = salida;
-            enrutador.nombre = par->first;
-            enrutador.costo = -1;
-            enrutador.ruta = "";
-            contenedor[enrutador_salida].push_back(enrutador);
-        }
-    }
-    for (auto par = begin(contenedor); par != end(contenedor); par++){
-        cout << endl << "Enrutador salida: " << par->first << endl;
-        for (auto enru = begin(par->second); enru != end(par->second); enru++){
-            cout << "Enrutador llegada: " << enru->nombre << " - costo: " << enru->costo << " - ruta: " << enru->ruta << endl;
-        }
-    }
-    return contenedor;
-}*/
 
-//PERMITER AGREGAR ENRUTADORES
+//PERMITE AGREGAR ENRUTADORES
 void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
     Caracteristicas enrutador;
 
@@ -578,6 +463,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
     }
     if(encontrado == false){
         Enrutador enrutadorSalida(salida);
+        enrutadoresExistentes.push_back(salida);
         _topologia.push_back(enrutadorSalida);
         //LUEGO SE EVALUAN LAS DEMAS CONEXIONES
         //SE DEBE EVALUAR QUE LA CONEXION EXISTA
@@ -652,6 +538,26 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
         }
     }
     //CALCULAMOS RUTAS INDIRECTAS
+    for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
+        for(auto j = _topologia.begin(); j != _topologia.end(); j++){
+            string nombreSalida = j->Getnombre();
+            map<string, list<Caracteristicas>> _enrutador = j->Getenrutador();
+            for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+                encontrado = false;
+                if(*i == par->first){
+                    encontrado = true;
+                    break;
+                }
+            }
+            if(encontrado == false){
+                enrutador.costoDirecto = -1;
+                enrutador.costo = 0;
+                enrutador.ruta = "";
+                _enrutador[*i].push_back(enrutador);
+                j->setEnrutador(_enrutador);
+            }
+        }
+    }
 
     for(auto i = _topologia.begin(); i != _topologia.end(); i++){
         string nombreSalida = i->Getnombre();
@@ -668,7 +574,46 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
         cout << endl;
     }
     _rutas.clear();
-    //calcularRutas();
+    calcularRutas();
+}
+
+//PERMITE ENLAZAR DOS ENRUTADORES
+void conexion::cambiarConfiguracion(string a, string b, string c){
+    for (auto i = begin(_topologia); i != end(_topologia); i++){
+        string nombreSalida = i->Getnombre();
+        if(nombreSalida == a || nombreSalida == b){
+            map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+            for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+                if(par->first == b || par->first == a){
+                    for(auto enru = par->second.begin(); enru != par->second.end(); enru++){
+                        if(enru->costoDirecto != -1){
+                            cout << "\nNo se pueden enlazar los enrutadores, debido a que ya estan enlazados.\nSi desea cambiar el costo entre ambos, debe ingresar a la opcion 4." << endl;
+                        }else{
+                            enru->costoDirecto = stoi(c);
+                            i->setEnrutador(_enrutador);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+        string nombreSalida = i->Getnombre();
+        cout << endl << "Enrutador salida: " << nombreSalida << endl;
+        map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
+        for(auto par = _enrutador.begin(); par != _enrutador.end(); par++){
+            cout << endl << "Enrutador llegada: " << par->first << " - ";
+            for (auto enru = begin(par->second); enru != end(par->second); enru++){
+                enru->costo = 0;
+                cout << "Costo Directo: " << enru->costoDirecto << " - costo: " << enru->costo << " - ruta: " << enru->ruta << endl;
+            }
+        }
+        i->setEnrutador(_enrutador);
+        cout << endl;
+    }
+    _rutas.clear();
+    calcularRutas();
 }
 
 void conexion::calcularRutas(){
@@ -699,8 +644,7 @@ void conexion::calcularRutas(){
                 }
             }
             //ruta[0]+nombreSalida == ruta
-            if(encontrado == true){//PROBLEMA SOLO ME VA A TOMAR 3 ENRUTADORES MAXIMO -> RESUELTO
-                //PROBLEMA: COSTOS! NO IMPRIME LOS COSTOS COMO SON
+            if(encontrado == true){
                 map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
                 for(auto parTop = _enrutador.begin(); parTop != _enrutador.end(); parTop++){
                     encontrado = false;

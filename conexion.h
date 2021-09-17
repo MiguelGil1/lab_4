@@ -34,15 +34,12 @@ public:
     //A continuacion se sobrecarga la funcion cambiarConfiguracion
     void cambiarConfiguracion(string a);//Permite eliminar enrutadores
     void cambiarConfiguracion(string a, string b, int c);//Permite cambiar el costo entre enrutadores
+    void cambiarConfiguracion(string a, string b, string c);//Permite enlazar dos enrutadores
     void cambiarConfiguracion(vector<string> enlaces, string salida);//Permite agregar enrutadores a la topologia
-    //map<string,list<Enrutador>>cargarDatos(map<string,list<Enrutador>> contenedor, string _archivo);
-    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor,string a, string b, int);
-    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, string a);
-    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>, string);
-    //map<string,list<Enrutador>> cambiarConfiguracion(map<string,list<Enrutador>> contenedor, vector<string>);
-    void imprimirRuta(string a, string b);
 
-    void calcularRutas();
+    //Funciones que permitan el calculo del costo y ruta minima
+    void imprimirRuta(string a, string b);//Imprime la ruta y el costo para llegar de un enrutador a otro
+    void calcularRutas();//Calcula todas las rutas posibles de la topologia
 private:
     map<string,int> _rutas;
     vector<Enrutador> _topologia;
