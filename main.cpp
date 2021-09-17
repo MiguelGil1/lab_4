@@ -14,9 +14,7 @@
 using namespace std;
 
 int main(){
-    //vector<Enrutador> topologia;
-    //map<string,list<Enrutador>> topologia;
-    //A -
+    map <string,int> TopologiaPorConsola;
     string archivo =  "";
     bool flag = true;
     int optMenuPrincipal = 0;
@@ -79,6 +77,10 @@ int main(){
             cin >> enrutadorLleguada;
             cout << "Ingrese el costo del enlace: ";
             cin >> costo;
+            string ruta = "";
+            ruta += enrutadorSalida;
+            ruta += enrutadorLleguada;
+            TopologiaPorConsola[ruta] = costo;
             bool flag2 = false;
             while(flag2 == false){
                 cout << "Desea ingresar otro enrutador? (Y/N): ";
@@ -92,7 +94,7 @@ int main(){
 
             if(ingresar == "N" || ingresar == "n"){
                 flag = true;
-                //conection.cargarDatos(archivo);
+                conection.cargarDatos(TopologiaPorConsola);
             }
         }
     }

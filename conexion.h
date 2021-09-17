@@ -30,6 +30,7 @@ public:
     //vector<Enrutador> cargarDatos(vector<Enrutador> contenedor, string _archivo);
     //Funcion que me permite cargar los daros desde el archivo
     void cargarDatos(string _archivo);
+    void cargarDatos(map<string,int> topologiaConsola);
 
     //A continuacion se sobrecarga la funcion cambiarConfiguracion
     void cambiarConfiguracion(string a);//Permite eliminar enrutadores
