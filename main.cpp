@@ -5,6 +5,19 @@
  relativa:
  ../nombre_archivo.txt
  Y debe tener una extension .txt
+
+ 2.) Tega en cuenta para el caso de archivos e ingresar por consola:
+ Si se desea realizar la conexion AB,15 tambuen se debera especificar e ingresar
+ la conexion BA,15
+
+ No se asegura un resultado correcto si:
+ -> No se agrega el inverso
+ -> Si el costo del inverso es diferente
+
+ 3.) El nombre de cada enrutador debe ser de maximo un caracter, no se asegura un resultado
+ correcto de lo contrario
+
+ 4.) El costo directo debe ser un entero, no se aeguta un resultado de lo correcto
 */
 #include <iostream>
 #include <fstream>

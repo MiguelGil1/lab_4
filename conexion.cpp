@@ -13,7 +13,7 @@ void conexion::cargarDatos(string _archivo){
 
     //Se recorre linea a linea el archivo de conexion, para mirar cuantos enrutadores
     //se tienen, cada vez que hay im nuevo enrutador se crea y se llema a su
-    //construcor
+    //constructor
     while(!file.eof()){
         encontrado = false;
         file >> linea;
@@ -27,6 +27,7 @@ void conexion::cargarDatos(string _archivo){
             }
         }
         if(encontrado == false){
+            //Si no se encontro el eenrutador de salida, se crea el objeto tipo enrutador
             enrutadoresExistentes.push_back(enrutadorSalida);
             Enrutador enrutadorSalida(enrutadorSalida_);
             _topologia.push_back(enrutadorSalida);
@@ -49,6 +50,7 @@ void conexion::cargarDatos(string _archivo){
         enrutadorLlegada = linea[1];
         costoDirectoStr.append(linea,linea.find(",")+1,linea.find("\n"));
         costoDirecto = stoi(costoDirectoStr);
+        //Se recorre el vector de enrutadores para aggerar las caracteristicas del enrutador de llegada
         for(auto i = _topologia.begin(); i != _topologia.end(); i++){
             string nombreSalida = i->Getnombre();
             if(enrutadorSalida_ == nombreSalida){
@@ -75,6 +77,7 @@ void conexion::cargarDatos(string _archivo){
                     break;
                 }
             }
+            //Si no se encontro se agrega el enrutador
             if(encontrado == false){
                 enrutador.costoDirecto = -1;
                 enrutador.costo = 0;
@@ -122,6 +125,7 @@ void conexion::cargarDatos(map<string, int> topologiaConsola){
             }
         }
         if(encontrado == false){
+            //Si no se encontro el eenrutador de salida, se crea el objeto tipo enrutador
             enrutadoresExistentes.push_back(enrutadorSalida);
             Enrutador enrutadorSalida(enrutadorSalida_);
             _topologia.push_back(enrutadorSalida);
@@ -271,6 +275,8 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
     string enrutador_llegada = "";
     string costoDirecto = "";
     bool encontrado = false;
+
+    //Primero evaluamos si el enrutador que se esta agregando ya existe en la topologi
     for(auto i = _topologia.begin(); i != _topologia.end(); i++){
         string nombreSalida = i->Getnombre();
         if(nombreSalida == salida){
@@ -279,7 +285,10 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
             break;
         }
     }
+
+    //Si no se encuentra se procesde a agregar el enrutador a la topologia
     if(encontrado == false){
+        //Primero se crea el enrutador
         Enrutador enrutadorSalida(salida);
         enrutadoresExistentes.push_back(salida);
         _topologia.push_back(enrutadorSalida);
@@ -293,8 +302,8 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
             costoDirecto = "";
             enrutador_salida = i[0][0];
             enrutador_llegada = i[0][1];
-            //SE EVALUA SI EXISTE LA CLAVE
              if(enrutador_llegada == salida){
+                 //Se evalua si el enrutador de salida exista
                  for(auto i = _topologia.begin(); i != _topologia.end(); i++){
                      string nombreSalida = i->Getnombre();
                      if(nombreSalida == enrutador_salida){
@@ -302,6 +311,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
                          break;
                      }
                  }
+                 //Si existe, se procede a crear la conexion agg las caracteristicas
                  if (encontrado == true){
                      for(auto k = _topologia.begin(); k != _topologia.end(); k++){
                          string nombreSalida = k->Getnombre();
@@ -318,6 +328,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
                          }
                      }
                  }else{
+                     //Si no existe, se imprime el siguiente mensaje
                      cout << "No se pudo agregar el enlace " <<
                              enrutador_salida << " - " << enrutador_llegada <<
                              " porque el enrutador de salida no existe en la conexion." << endl;
@@ -325,6 +336,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
 
              }else if (enrutador_salida == salida){
                  //OPCION SI EL ENRUTADOR DE SALIDA ES IGUAL AL DE SALIDA
+                 //Se evalua si se encuentra en elrutador de llegada
                  for(auto i = _topologia.begin(); i != _topologia.end(); i++){
                      string nombreSalida = i->Getnombre();
                      if(nombreSalida == enrutador_llegada){
@@ -333,6 +345,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
                      }
                  }
                  if(encontrado == true){
+                     //Si se encuentra se procede a crear la conexion con sus caracteristicas
                      for(auto k = _topologia.begin(); k != _topologia.end(); k++){
                          string nombreSalida = k->Getnombre();
                          if(enrutador_salida == nombreSalida){
@@ -348,6 +361,7 @@ void conexion::cambiarConfiguracion(vector<string> enlaces, string salida){
                          }
                      }
                  }else{
+                     //Si no existe se procede a imprimir lo siguiente
                      cout << "No se pudo aggregar la conexion directa " <<
                              enrutador_salida << " - " << enrutador_llegada <<
                              " porque el enrutador de llegada no existe en la conexion." << endl;
@@ -405,8 +419,10 @@ void conexion::cambiarConfiguracion(string a, string b, string c){
                 if(par->first == b || par->first == a){
                     for(auto enru = par->second.begin(); enru != par->second.end(); enru++){
                         if(enru->costoDirecto != -1){
+                            //Si el costoDirecto es diferente de - se procede a imprir lo siguiente
                             cout << "\nNo se pueden enlazar los enrutadores, debido a que ya estan enlazados.\nSi desea cambiar el costo entre ambos, debe ingresar a la opcion 4." << endl;
                         }else{
+                            //De lo contrario se enlazan los enrutadores
                             enru->costoDirecto = stoi(c);
                             i->setEnrutador(_enrutador);
                         }
@@ -450,11 +466,13 @@ void conexion::calcularRutas(){
     }
 
     bool encontrado = false;
+    //Recorre las rutas directas encontradas
     for(auto par = _rutas.begin(); par != _rutas.end(); par++){
         ruta = par->first;
         for(auto i = _topologia.begin(); i != _topologia.end(); i++){
             string nombreSalida = i->Getnombre();
             encontrado = false;
+            //Se evalua si estamos en el enrutador de la primera posicion de la ruta
             for(int i = 0; i < int(ruta.length()); i++){
                 if(ruta[i] == par->first[0]){
                     encontrado = true;
@@ -462,6 +480,7 @@ void conexion::calcularRutas(){
                 }
             }
             //ruta[0]+nombreSalida == ruta
+            //Si lo estamos, procedemos a calcular rutas
             if(encontrado == true){
                 map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
                 for(auto parTop = _enrutador.begin(); parTop != _enrutador.end(); parTop++){
@@ -494,19 +513,21 @@ void conexion::calcularRutas(){
         }
     }
 
+    //Se recorre el vector de enrutadores y se encuentra la mejor ruta
     for(auto i = _topologia.begin(); i != _topologia.end(); i++){
         i->calcularMejorRuta(_rutas);
     }
 
     //IMPRIMIMOS EL MAPA DE RUTAS
-    for(auto par = _rutas.begin(); par != _rutas.end(); par++){
+    /*for(auto par = _rutas.begin(); par != _rutas.end(); par++){
         cout << "RUTA = " << par->first << " - COSTO = " << par->second << endl;
-    }
+    }*/
 }
 
 void conexion::imprimirRuta(string a, string b){
     bool encontradoSalida = false;
     bool encontrarLlegada = false;
+    //Se evalua si ambos enrutadores existen
     for(auto i = enrutadoresExistentes.begin(); i != enrutadoresExistentes.end(); i++){
         if(*i == a){
             encontradoSalida = true;
@@ -522,6 +543,7 @@ void conexion::imprimirRuta(string a, string b){
     }else if(encontradoSalida == false){
         cout << "No se encontro el enrutador de salida :(" << endl;
     }else{
+        //Si existen, se procede a imprimir la mejor ruta
         for(auto i = _topologia.begin(); i != _topologia.end(); i++){
             string nombreSalida = i->Getnombre();
             if(nombreSalida == a){

@@ -3,23 +3,31 @@
 
     La clase llamada constructor tiene las sigueintes caracteristicas:
 
-    METODOS
+    METODOS:
+    1.) el metodo cargar datos sobregargado Cargan los datos desde el archivo o desde consoa para
+    consigurar la topologia
 
-    1.) constructor: Se encargara de traducir la info. contenida en el archivo
-    que contenga la configuracion de la conexion y representarla en un contenedor
-    en este caso sera un mapa, que todavia se tiene la duda si este sera la
-    tabla de enrutamiento o solo conendra las conexiones fijas
+    2.) La funcion cambiarCOnfigutacion sobrecargada: Se encarga de realizar modificaciones sobre
+    la topologia
+
+    3.) CalcularRutas: Se encarga de calcuar todas la rutas posiblkes y su respectivo
+    costo, una vez terminado el calculo de rutas, llama el metodo calcular meor ruta
+    y le envia el mapa de rutas para que cada enrutador calcule sus mejores rutas
+
+    4.) ImprimirRuta: Se encarga de imprimir la mejor ruta junto con su costo asociado.
 
     ATRIBUTOS:
 
-    1.) _conexion: Mapa anidado que aun esta por definirse si contendra la tabla
-    de enrutamiento o sera nada mas un mapa que contenga las conexions diractas
+    1.) enrutadoresExistentes: Vector que se envarga de guardar los enrutadores que existen en
+    la topologia
 
-    2.) _enrutadoresDeLaRuta: Contenedor (que aun esta por definirse cual) el
-    cual contendra los enrutadores a utilizados en una ruta, se crea con la intesion
-    de que se cnsulte primero en este contenedor antes de saltar a otro enrutador
-    para evitar casos como un bucle infinito entre enrutaodres o pasar dos veces
-    por el mismo enrutador en una ruta.
+    2.) _rutas = Mapa que tiene clave un string que almacena ruta y como elemento un
+    entero que reperenta el totpal del cosnto de la ruta
+
+    2.) _topologia: Vector de enrutadores
+
+    PARA QUE ESTA LIBRERIA FUNCUONE SE DEBE INCLUIR LA LIBRERIA "Enrutador.h"
+    De lo contrario no se asegura un correcto funcionamiento.
 */
 #ifndef CONEXION_H
 #define CONEXION_H
