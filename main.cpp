@@ -44,7 +44,7 @@ int main(){
                 archivo += ".txt";
                 bool abierto = false;
                 ifstream outfile;
-                while(!abierto){
+                while(!abierto){//,ientras el archivo no sea abierto correctamente, se pedira que se ingrese el no,bre dela rchivo
                     outfile.open("../"+archivo);
                     if(!outfile.is_open()){
                         archivo = "";
@@ -74,8 +74,10 @@ int main(){
     }
     conexion conection;
     if(optMenuPrincipal == 1){
+        //Si se desea ingresar por archivo, se cargan los datos del archivo
         conection.cargarDatos(archivo);
     }else{
+        //De lo contrario se procede a pedir la topologia por consola hasta que no se quieran ingresar mas enrutadores
         cout << "Por favor ingrese las conexiones de la Topologia:" << endl;
         cout << "Tenga en cuenta que si quiere conectar los enrutadores AB, tambien debe escribir la cponexion BA" << endl;
         bool flag = false;
