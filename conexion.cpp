@@ -1,12 +1,11 @@
 #include "conexion.h"
-
 void conexion::cargarDatos(string _archivo){
     Caracteristicas enrutador;
 
     ifstream file;
     string linea;
 
-    file.open("../"+ _archivo);
+    file.open(_archivo);
     string enrutadorSalida = "";
 
     bool encontrado = false;
@@ -34,7 +33,7 @@ void conexion::cargarDatos(string _archivo){
         }
     }
     file.close();
-    file.open("../"+ _archivo);
+    file.open(_archivo);
 
     string costoDirectoStr = "";
     int costoDirecto = 0;
@@ -88,7 +87,7 @@ void conexion::cargarDatos(string _archivo){
         }
     }
 
-    /*for(auto i = _topologia.begin(); i != _topologia.end(); i++){
+    for(auto i = _topologia.begin(); i != _topologia.end(); i++){
         string nombreSalida = i->Getnombre();
         cout << endl << "Enrutador salida: " << nombreSalida << endl;
         map<string, list<Caracteristicas>> _enrutador = i->Getenrutador();
@@ -99,7 +98,7 @@ void conexion::cargarDatos(string _archivo){
             }
         }
         cout << endl;
-    }*/
+    }
     cout << "\nDatos cargados correctamente! :)" << endl;
     calcularRutas();
     system("PAUSE");

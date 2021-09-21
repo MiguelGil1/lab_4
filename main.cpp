@@ -25,10 +25,11 @@
 #include "conexion.h"
 
 using namespace std;
-
+#define rutaArchivo "../lab_4/DB/"
+//RUTA RELATIVA DEL ARCHIVO
 int main(){
     map <string,int> TopologiaPorConsola;
-    string archivo =  "";
+    string archivo = "";
     bool flag = true;
     int optMenuPrincipal = 0;
     while(flag){
@@ -44,8 +45,8 @@ int main(){
                 archivo += ".txt";
                 bool abierto = false;
                 ifstream outfile;
-                while(!abierto){//,ientras el archivo no sea abierto correctamente, se pedira que se ingrese el no,bre dela rchivo
-                    outfile.open("../"+archivo);
+                while(!abierto){//Mientras el archivo no sea abierto correctamente, se pedira que se ingrese el no,bre dela rchivo
+                    outfile.open(rutaArchivo+archivo);
                     if(!outfile.is_open()){
                         archivo = "";
                         cout << "El archivo no fue abierto adecuadamente.\nIntentelo nuevamente." << endl;
@@ -75,7 +76,7 @@ int main(){
     conexion conection;
     if(optMenuPrincipal == 1){
         //Si se desea ingresar por archivo, se cargan los datos del archivo
-        conection.cargarDatos(archivo);
+        conection.cargarDatos(rutaArchivo+archivo);
     }else{
         //De lo contrario se procede a pedir la topologia por consola hasta que no se quieran ingresar mas enrutadores
         cout << "Por favor ingrese las conexiones de la Topologia:" << endl;
